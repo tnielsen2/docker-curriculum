@@ -1,8 +1,6 @@
 Docker Curriculum
 ===
 
-> Learn to build and deploy your distributed applications easily to the cloud with Docker
-
 Forked repo for simple containers used for testing Ansible ECS task definitions.
 
 ## flask-app
