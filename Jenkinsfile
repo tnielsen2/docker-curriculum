@@ -14,7 +14,7 @@ def app
             /* This builds the actual image; synonymous to
              * docker build on the command line */
 
-            app = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile . ")
+            app = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
     }
 
     stage('Push image') {
