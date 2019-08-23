@@ -26,7 +26,10 @@ def app
             app.push("${env.BRANCH_NAME}")
         }
     }
-
+    stage('Identify This Branch') {
+        echo ${env.BRANCH_NAME}"
+        }
+    }
 
 
 }
