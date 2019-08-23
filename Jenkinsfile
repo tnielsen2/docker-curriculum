@@ -1,7 +1,10 @@
 node {
 
 def app
-
+    /* Let's set the environment variable for the development environment */
+    environment {
+        ENV = "${env.GIT_BRANCH}"
+    }
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 
@@ -12,9 +15,8 @@ def app
             /* This builds the actual image; synonymous to
              * docker build on the command line */
 
-            app = docker.build("flask-app", "-f ./flask-app/Dockerfile . yamtechnology/flask:${env.GIT_BRANCH}")
+            app = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile . ")
     }
-
 
     stage('Push image') {
         /* Finally, we'll push the image with two tags:
