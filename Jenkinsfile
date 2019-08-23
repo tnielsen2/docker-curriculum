@@ -12,7 +12,7 @@ def app
             /* This builds the actual image; synonymous to
              * docker build on the command line */
 
-            app = docker.build("yamtechnology/flask:${env.GIT_BRANCH}")
+            app = docker.build("flask-app", "-f ./flask-app/Dockerfile . yamtechnology/flask:${env.GIT_BRANCH}")
     }
 
 
