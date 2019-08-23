@@ -25,12 +25,12 @@ def ecrapp
     stage('Build ECR image') {
             /* This builds the actual image in the folder above root */
 
-            docker.build("flask", "-f ./flask-app/Dockerfile ./flask-app/. ")
+            ecrapp = docker.build("flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
     }
     stage('Push image to ECR') {
         /* Push to ECR */
-        docker.withRegistry('https://264622616033.dkr.ecr.us-west-2.amazonaws.com', 'ecr:sa-pxg-jenkins') {
-            docker.image('flask').push("develop")
+        docker.withRegistry('https://264622616033.dkr.ecr.us-west-2.amazonaws.com/flask', 'ecr:us-west-2:sa-pxg-jenkins') {
+            ecrapp.push("${env.BRANCH_NAME}")
         }
     }
 
