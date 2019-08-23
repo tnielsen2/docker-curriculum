@@ -1,6 +1,7 @@
 node {
 
-def app
+def dockerapp
+def ecrapp
     /* Let's set the environment variable for the development environment */
     environment {
         ENV = "${env.BRANCH_NAME}"
@@ -10,20 +11,26 @@ def app
 
         checkout scm
     }
-    stage('Build my image') {
-            /* This builds the actual image; synonymous to
-             * docker build on the command line */
+    stage('Build Dockerhub image') {
+            /* This builds the actual image in the folder above root */
 
-            app = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
+            dockerapp = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
     }
-
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
+    stage('Push image to Dockerhub') {
+        /* Push to Dockerhub */
         docker.withRegistry('https://registry.hub.docker.com', '627b1088-462c-4adf-9e9a-0dee54655bd5') {
-            app.push("${env.BRANCH_NAME}")
+            dockerapp.push("${env.BRANCH_NAME}")
+        }
+    }
+    stage('Build ECR image') {
+            /* This builds the actual image in the folder above root */
+
+            ecrapp = docker.build("flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
+    }
+    stage('Push image to ECR') {
+        /* Push to ECR */
+        docker.withRegistry('https://264622616033.dkr.ecr.us-west-2.amazonaws.com/flask', 'ecr:us-west-2:sa-pxg-jenkins') {
+            ecrapp.push("${env.BRANCH_NAME}")
         }
     }
 
