@@ -30,7 +30,7 @@ def ecrapp
     stage('Push image to ECR') {
         /* Push to ECR */
         docker.withRegistry('https://264622616033.dkr.ecr.us-west-2.amazonaws.com', 'sa-pxg-jenkins') {
-            docker.image('flask').push("${env.BRANCH_NAME}")
+            docker.image('flask').push("develop")
         }
     }
 
