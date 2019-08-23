@@ -15,8 +15,7 @@ def app
              * docker build on the command line */
 
             app = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
-    }
-
+    }    
     stage('Push image') {
         /* Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
@@ -26,10 +25,7 @@ def app
             app.push("${env.BRANCH_NAME}")
         }
     }
-    stage('Identify This Branch') {
-        echo ${env.BRANCH_NAME}
-        }
-    
+
 
 
 }
