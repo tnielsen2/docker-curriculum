@@ -12,6 +12,7 @@ stages {
                 def flask = docker.build("yamgtechnology/flask:${env.BRANCH_NAME}")
                 customImage.push()
             }
-        }
-    }
+         }
+      }
+   }
 }
