@@ -3,7 +3,17 @@ pipeline {
     environment {
     ENV = "develop"
 }
-    stages {
+stages {
+    stage('Build image') {
+        steps {
+            echo 'Starting to build docker image'
+
+            script {
+                def flask = docker.build("yamgtechnology/flask:${env.BRANCH_NAME}")
+                customImage.push()
+            }
+        }
+
         stage('Build') {
             steps {
                 sh('printenv | sort')
@@ -11,7 +21,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo $ENV
+                echo ${env.ENV}
             }
         }
         stage('Deploy') {
