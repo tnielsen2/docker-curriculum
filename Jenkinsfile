@@ -13,22 +13,4 @@ stages {
                 customImage.push()
             }
         }
-
-        stage('Build') {
-            steps {
-                sh('printenv | sort')
-            }
-        }
-        stage('Test') {
-            steps {
-                echo ${env.ENV}
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Put deploy steps here'
-            }
-        }
-    }
-}
 }
