@@ -10,11 +10,6 @@ def app
 
         checkout scm
     }
-    stage('Build source image') {
-            /* This builds the source image, without this, the subsequent step will fail */
-
-            app = docker.build("python:3-onbuild")
-    }
     stage('Build my image') {
             /* This builds the actual image; synonymous to
              * docker build on the command line */
