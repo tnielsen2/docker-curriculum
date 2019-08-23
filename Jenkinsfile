@@ -5,14 +5,15 @@ pipeline {
 }
 stages {
     stage('Build image') {
-        steps {
-            echo 'Starting to build docker image'
+    checkout scm
 
-            script {
-                def flask = docker.build("yamtechnology/flask:${env.BRANCH_NAME}")
-                customImage.push()
-            }
-         }
+    docker.withRegistry('https://registry.hub.docker.com', '627b1088-462c-4adf-9e9a-0dee54655bd5') {
+
+        def customImage = docker.build("yamtechnology/flask:${env.GIT_BRANCH}")
+
+        /* Push the container to the custom Registry */
+        customImage.push()
+
       }
    }
 }
