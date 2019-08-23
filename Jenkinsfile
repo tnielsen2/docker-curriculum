@@ -3,7 +3,7 @@ node {
 def app
     /* Let's set the environment variable for the development environment */
     environment {
-        ENV = "${env.GIT_BRANCH}"
+        ENV = "${env.BRANCH_NAME}"
     }
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
@@ -23,7 +23,7 @@ def app
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
         docker.withRegistry('https://registry.hub.docker.com', '627b1088-462c-4adf-9e9a-0dee54655bd5') {
-            app.push("${env.GIT_BRANCH}")
+            app.push("${env.BRANCH_NAME}")
         }
     }
 
