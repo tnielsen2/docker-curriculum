@@ -23,7 +23,7 @@ def app
     }
     stage('Push image to ECR') {
         /* Push to ECR */
-        docker.withRegistry('264622616033.dkr.ecr.us-west-2.amazonaws.com', 'PXG AWS sa-jenkins') {
+        docker.withRegistry('264622616033.dkr.ecr.us-west-2.amazonaws.com', 'sa-pxg-jenkins') {
             app.push("${env.BRANCH_NAME}")
         }
     }
