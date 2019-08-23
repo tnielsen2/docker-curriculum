@@ -10,21 +10,26 @@ def app
 
         checkout scm
     }
-    stage('Build my image') {
+    stage('Build Dockerhub image') {
             /* This builds the actual image in the folder above root */
 
-            app = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
+            dockerapp = docker.build("yamtechnology/flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
     }
     stage('Push image to Dockerhub') {
         /* Push to Dockerhub */
         docker.withRegistry('https://registry.hub.docker.com', '627b1088-462c-4adf-9e9a-0dee54655bd5') {
-            app.push("${env.BRANCH_NAME}")
+            dockerapp.push("${env.BRANCH_NAME}")
         }
+    }
+    stage('Build ECR image') {
+            /* This builds the actual image in the folder above root */
+
+            ecrapp = docker.build("flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
     }
     stage('Push image to ECR') {
         /* Push to ECR */
         docker.withRegistry('https://264622616033.dkr.ecr.us-west-2.amazonaws.com/flask', 'sa-pxg-jenkins') {
-            app.push("${env.BRANCH_NAME}")
+            ecrapp.push("${env.BRANCH_NAME}")
         }
     }
 
