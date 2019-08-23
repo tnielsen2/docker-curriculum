@@ -13,4 +13,5 @@ stages {
                 customImage.push()
             }
         }
+    }
 }
