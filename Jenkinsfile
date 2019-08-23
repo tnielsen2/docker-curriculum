@@ -25,7 +25,7 @@ def ecrapp
     stage('Build ECR image') {
             /* This builds the actual image in the folder above root */
 
-            ecrapp = docker.build("flask:${env.ENV}", "-f ./flask-app/Dockerfile ./flask-app/. ")
+            ecrapp = docker.build("flask", "-f ./flask-app/Dockerfile ./flask-app/. ")
     }
     stage('Push image to ECR') {
         /* Push to ECR */
