@@ -4,7 +4,8 @@ pipeline {
     ENV = "develop"
 }
 stages {
-    stage('Build image') {
+    stage('Build') {
+      steps {
     checkout scm
 
     docker.withRegistry('https://registry.hub.docker.com', '627b1088-462c-4adf-9e9a-0dee54655bd5') {
@@ -13,7 +14,7 @@ stages {
 
         /* Push the container to the custom Registry */
         customImage.push()
-
+          }
       }
    }
 }
