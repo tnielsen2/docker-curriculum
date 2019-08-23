@@ -27,7 +27,7 @@ def app
         }
     }
     stage('Identify This Branch') {
-        echo ${env.BRANCH_NAME}"
+        echo ${env.BRANCH_NAME}
         }
     }
 
