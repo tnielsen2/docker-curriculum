@@ -1,6 +1,7 @@
 node {
 
-def app
+def dockerapp
+def ecrapp
     /* Let's set the environment variable for the development environment */
     environment {
         ENV = "${env.BRANCH_NAME}"
