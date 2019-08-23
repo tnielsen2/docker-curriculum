@@ -9,7 +9,7 @@ stages {
             echo 'Starting to build docker image'
 
             script {
-                def flask = docker.build("yamgtechnology/flask:${env.BRANCH_NAME}")
+                def flask = docker.build("yamtechnology/flask:${env.BRANCH_NAME}")
                 customImage.push()
             }
          }
