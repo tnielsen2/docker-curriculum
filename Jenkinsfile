@@ -33,6 +33,11 @@ def ecrapp
             ecrapp.push("${env.BRANCH_NAME}")
         }
     }
+    if (${env.BRANCH_NAME} == 'develop') {
+    stage('Fire Deploy Job') {
+    def job = build job: 'misc/lunch-reminder'
+    }
+    }
 
 
 
